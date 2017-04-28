@@ -28,6 +28,20 @@ var albumMarconi = {
      ]
  };
 
+ var albumBeatles = {
+      title: 'The Beatles (No.1)',
+      artist: 'The Beatles',
+      label: 'Parlophone',
+      year: '1963',
+      albumArtUrl: 'assets/images/album_covers/18.png',
+      songs: [
+          { title: 'I Saw Her Standing There', duration: '2:55' },
+          { title: 'Misery', duration: '1:47' },
+          { title: 'Anna (Go To Him)', duration: '2:54'},
+          { title: 'Chains', duration: '2:23' },
+      ]
+  };
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -39,6 +53,12 @@ var albumMarconi = {
 
      return template;
  };
+
+ var albumTitle = document.getElementsByClassName('album-view-title')[0];
+ var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+ var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+ var albumImage = document.getElementsByClassName('album-cover-art')[0];
+ var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
  var setCurrentAlbum = function(album) {
    var albumTitle = document.getElementsByClassName('album-view-title')[0];
@@ -61,4 +81,16 @@ var albumMarconi = {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+
+var albums = [albumPicasso, albumMarconi, albumBeatles];
+var index = 1;
+
+    albumImage.addEventListener("click", function (event) {
+        setCurrentAlbum(albums[index]);
+        index++;
+        if (index == albums.length) {
+          index = 0;
+        }
+    });
+
   };
