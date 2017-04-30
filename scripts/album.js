@@ -28,10 +28,24 @@ var albumMarconi = {
      ]
  };
 
+ var albumBeatles = {
+      title: 'The Beatles (No.1)',
+      artist: 'The Beatles',
+      label: 'Parlophone',
+      year: '1963',
+      albumArtUrl: 'assets/images/album_covers/18.png',
+      songs: [
+          { title: 'I Saw Her Standing There', duration: '2:55' },
+          { title: 'Misery', duration: '1:47' },
+          { title: 'Anna (Go To Him)', duration: '2:54'},
+          { title: 'Chains', duration: '2:23' },
+      ]
+  };
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
-      + '  <td class="song-item-number">' + songNumber + '</td>'
+      + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
       + '  <td class="song-item-duration">' + songLength + '</td>'
       + '</tr>'
@@ -39,6 +53,12 @@ var albumMarconi = {
 
      return template;
  };
+
+ var albumTitle = document.getElementsByClassName('album-view-title')[0];
+ var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+ var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+ var albumImage = document.getElementsByClassName('album-cover-art')[0];
+ var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
  var setCurrentAlbum = function(album) {
    var albumTitle = document.getElementsByClassName('album-view-title')[0];
@@ -59,6 +79,36 @@ var albumMarconi = {
 }
 };
 
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+var songRows = document.getElementsByClassName('album-view-song-item');
+
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+
+    songListContainer.addEventListener('mouseover', function(event) {
+      if (event.target.parentElement.className === 'album-view-song-item') {
+        event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+      }
+    });
+
+    for (var i = 0; i < songRows.length; i++) {
+    songRows[i].addEventListener('mouseleave', function(event) {
+      this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
+    });
+}
+}
+
+var albums = [albumPicasso, albumMarconi, albumBeatles];
+var index = 1;
+
+    albumImage.addEventListener("click", function (event) {
+        setCurrentAlbum(albums[index]);
+        index++;
+        if (index == albums.length) {
+          index = 0;
+        }
+    });
+
   };
