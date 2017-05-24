@@ -267,16 +267,4 @@ $(document).ready(function() {
     setupSeekBars();
     $previousButton.click(previousSong);
     $nextButton.click(nextSong);
-
-
-var albums = [albumPicasso, albumMarconi];
-var index = 1;
-
-    albumImage.addEventListener("click", function (event) {
-        setCurrentAlbum(albums[index]);
-        index++;
-        if (index == albums.length) {
-          index = 0;
-        }
-    });
 });
