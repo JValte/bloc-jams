@@ -66,6 +66,7 @@ var getSongNumberCell = function (number) {
      $(currentlyPlayingCell).html(pauseButtonTemplate);
     $(this).html(playerBarPauseButton);
     currentSoundFile.play();
+    updateSeekBarWhileSongPlays();
     } else {
       $(currentlyPlayingCell).html(playButtonTemplate);
       $(this).html(playerBarPlayButton);
