@@ -204,7 +204,7 @@ var nextSong = function () {
     }
     var lastSongNumber = currentlyPlayingSongNumber;
 
-    setSong(songNumber);
+    setSong(currentSongIndex + 1);
     currentSoundFile.play();
     updateSeekBarWhileSongPlays();
     updatePlayerBarSong();
@@ -225,7 +225,7 @@ var previousSong = function () {
   }
     var lastSongNumber = currentlyPlayingSongNumber;
 
-    setSong(songNumber);
+    setSong(currentSongIndex + 1);
     currentSoundFile.play();
     updateSeekBarWhileSongPlays();
     updatePlayerBarSong();
@@ -246,6 +246,24 @@ var previousSong = function () {
     setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
   };
 
+var togglePlayFromPlayerBar = function () {
+
+    var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+
+    if(currentSoundFile.isPaused()){
+      $(currentlyPlayingCell).html(pauseButtonTemplate);
+
+      $('.main-controls .play-pause').html(playerBarPauseButton);
+      currentSoundFile.play();
+      updateSeekBarWhileSongPlays();
+    }
+    else {
+        $(currentlyPlayingCell).html(playButtonTemplate);
+        $('.main-controls .play-pause').html(playerBarPlayButton);
+        currentSoundFile.pause();
+    }
+
+};
 
   var setCurrentTimeInPlayerBar = function (currentTime){
     $('.current-time').text(filterTimeCode(currentTime));
@@ -277,10 +295,12 @@ var currentVolume = 80;
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playerBarPlayToggle = $('.main-controls .play-pause');
 
 $(document).ready(function() {
     setCurrentAlbum(albumPicasso);
     setupSeekBars();
     $previousButton.click(previousSong);
     $nextButton.click(nextSong);
+    $playerBarPlayToggle.click(togglePlayFromPlayerBar);
  });
