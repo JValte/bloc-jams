@@ -60,19 +60,6 @@ var getSongNumberCell = function (number) {
               }
 	};
 
-  var togglePlayFromPlayerBar = function () {
-    var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber){
-    if (currentSoundFile.isPaused()) {
-     $(currentlyPlayingCell).html(pauseButtonTemplate);
-    $(this).html(playerBarPauseButton);
-    currentSoundFile.play();
-    updateSeekBarWhileSongPlays();
-    } else {
-      $(currentlyPlayingCell).html(playButtonTemplate);
-      $(this).html(playerBarPlayButton);
-      currentSoundFile.pause();
-    }
-  };
 
     var onHover = function(event) {
               var songNumberCell = $(this).find('.song-item-number');
@@ -99,6 +86,19 @@ var getSongNumberCell = function (number) {
     return $row;
  };
 
+ var togglePlayFromPlayerBar = function () {
+   var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+   if (currentSoundFile.isPaused()) {
+    $(currentlyPlayingCell).html(pauseButtonTemplate);
+   $(this).html(playerBarPauseButton);
+   currentSoundFile.play();
+   updateSeekBarWhileSongPlays();
+   } else {
+     $(currentlyPlayingCell).html(playButtonTemplate);
+     $(this).html(playerBarPlayButton);
+     currentSoundFile.pause();
+   }
+ };
 
 
  var setCurrentAlbum = function(album) {
@@ -207,7 +207,7 @@ var albums = [albumPicasso, albumMarconi];
 var index = 1;
 
     albumImage.addEventListener("click", function (event) {
-        setCurrentAlbum(albums[index]);
+       setCurrentAlbum(albums[index]);
         index++;
         if (index == albums.length) {
           index = 0;
