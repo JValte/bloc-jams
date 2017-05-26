@@ -278,6 +278,9 @@ var togglePlayFromPlayerBar = function () {
     var wholeMin = Math.floor(totalSeconds / 60);
     var wholeSec = Math.floor(totalSeconds % 60);
 
+    if (wholeSec < 10){
+      wholeSec = "0" + wholeSec;
+    }
     return wholeMin + ":" + wholeSec;
   };
 
